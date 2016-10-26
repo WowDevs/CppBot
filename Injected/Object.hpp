@@ -54,10 +54,10 @@ public:
 		return Coords().DistanceTo(to);
 	}
 
-	char Traceline(Location& start, Location& end, Location& result, int flags)
+	bool Traceline(Location& start, Location& end, Location& result, int flags)
 	{
 		float dist = 1.0f;
-		return ((char(__cdecl*)(Location&, Location&, Location&, float&, int, int))(0x007A3B70))(start, end, result, dist, flags, 0);
+		return ((bool(__cdecl*)(Location&, Location&, Location&, float&, int, int))(0x007A3B70))(start, end, result, dist, flags, 0);
 	}
 
 	bool InLosTo(Location& other)

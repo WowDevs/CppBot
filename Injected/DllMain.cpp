@@ -6,7 +6,7 @@
 #include <string>
 #include <cstdio>
 
-#include "ConsoleManager.hpp"
+#include "WindowsConsole.hpp"
 #include "Manager.hpp"
 #include "KeyboardHook.hpp"
 
@@ -27,7 +27,7 @@ BOOL APIENTRY DllMain(HINSTANCE instDLL, DWORD reason, LPVOID /* reserved */)
 	}	
 	else if (reason == DLL_PROCESS_DETACH)
 	{		
-		ConsoleManager::Destroy();
+		WindowsConsole::Destroy();
 		
 	}
 	return TRUE;
@@ -46,7 +46,7 @@ void WINAPI MessageLoop(LPVOID lpParm)
 
 DWORD MainThreadControl(LPVOID lpParm)
 {	
-	ConsoleManager::Create();	
+	WindowsConsole::Create();	
 	Sleep(200);	
 
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&MessageLoop, NULL, 0, NULL);
