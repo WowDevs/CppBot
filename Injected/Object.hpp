@@ -1,11 +1,15 @@
 #pragma once
 #include "Wowtypes.h"
 
-extern  int me;
+class LocalPlayer;
+extern LocalPlayer* me;
 
 class Object
 {
 public:
+	int addr;
+	Location pos;
+
 	Object() : addr{ 0 }, pos{ Location() } { }
 
 	Object(int address) : addr{ address }, pos{ Location() } { }
@@ -63,7 +67,7 @@ public:
 		if (other.Invalid())
 			return false;
 		Location start = Coords();
-		if (start == Location( ))
+		if (start.Invalid())
 			return false;
 		Location result;
 		start.z += 1.3f;
@@ -87,11 +91,7 @@ public:
 	{
 		int flags = GetDescriptor<int>(idx);
 		return (flags & flag) != 0;
-	}
-
-public:
-	int addr;
-	Location pos;
+	}	
 };
 
 
