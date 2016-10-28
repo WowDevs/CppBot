@@ -135,4 +135,10 @@ public:
 	{
 		return CanAttack((Unit*)me);
 	}
+
+	void UpdateDisplayInfo(bool update = true)
+	{
+		if (addr)
+			((void(__thiscall*)(int, bool))0x0073E410)(addr, update);
+	}
 };

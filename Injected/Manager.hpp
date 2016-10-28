@@ -15,10 +15,13 @@
 bool shouldRemoveEndSceneInjection = false;
 bool endSceneUnhooked = false;
 std::map<std::string, Detour*> g_Detours;
+bool should_exit = false;
+bool do_something = false;
 
 int frameCount = 0;
 Graphics* graph = nullptr;
 timer afkTimer;
+int silly_counter = 0;
 
 void mrint(std::string name, std::string value)
 {
@@ -32,8 +35,6 @@ void mrint(std::string name, std::string value)
 //---------------- END SCENE DETOUR ------------------
 int __stdcall EndSceneDetour(LPDIRECT3DDEVICE9 device)
 {
-	auto det = g_Detours["EndScene"];
-
 	OM_Pulse();
 
 	if (frameCount % 30 == 0)
@@ -58,8 +59,28 @@ int __stdcall EndSceneDetour(LPDIRECT3DDEVICE9 device)
 	if (me && me->Class() == CLASS_PALADIN)
 		PaladinLeveling();
 
+	if (do_something)
+	{
+		++silly_counter;
+
+		if (me)
+		{
+			*(int*)(me->addr + 0x1A64) = silly_counter;
+
+			me->UpdateDisplayInfo();
+		}
+		
+		do_something = false;
+	}
+
+	mrint("model", std::to_string(silly_counter));
+
+	/*if (me)
+		me->UpdateDisplayInfo();*/
+
 	frameCount++;
 
+	auto det = g_Detours["EndScene"];
 	det->Restore();
 	int res = ((int(__stdcall*)(LPDIRECT3DDEVICE9))det->GetOrig())(device);
 	if (shouldRemoveEndSceneInjection)

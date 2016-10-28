@@ -23,6 +23,7 @@
 //#include "DetourNavMesh.h"
 #include <cassert>
 #include <stdint.h>
+#include <vector>
 
 #include "Location.hpp"
 

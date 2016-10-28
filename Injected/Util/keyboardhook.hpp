@@ -2,8 +2,6 @@
 #include "Util\Helpers.hpp"
 #include "..\Manager.hpp"
 
-bool should_exit = false;
-
 #include <Windows.h>
 
 HHOOK hKeyHook = nullptr;
@@ -21,6 +19,9 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		auto key = ((KBDLLHOOKSTRUCT*)lParam)->vkCode;
 
 		//printf("%X", key);
+
+		if (key == VK_NUMPAD2)
+			do_something = true;
 
 		if (key == VK_NUMPAD7)
 			should_exit = true;

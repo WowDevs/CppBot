@@ -1,7 +1,6 @@
 #pragma once
 #include "Unit.hpp"
 
-
 extern std::vector<Unit*> units;
 
 class Player : public Unit
