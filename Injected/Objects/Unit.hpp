@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.hpp"
 
-Object* GetObjectByGuid(long long/* guid*/);
+Object* GetObjectByGuid(uint64 /* guid*/);
 
 class Unit : public Object
 {

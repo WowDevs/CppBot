@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
-#include "Wowtypes.h"
-#include "WowFuncs.hpp"
+#include "WowStuff\Wowtypes.h"
+#include "WowStuff\WowFuncs.hpp"
 #include "LocalPlayer.hpp"
 
 //class Unit;

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <chrono>
-#include "Camera.hpp"
+#include "WowStuff\Camera.hpp"
 #include "OM.hpp"
 
 typedef std::chrono::high_resolution_clock Clock;

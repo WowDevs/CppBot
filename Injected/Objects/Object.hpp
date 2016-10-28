@@ -1,5 +1,6 @@
 #pragma once
-#include "Wowtypes.h"
+#include <vector>
+#include "WowStuff\Wowtypes.h"
 
 class LocalPlayer;
 extern LocalPlayer* me;

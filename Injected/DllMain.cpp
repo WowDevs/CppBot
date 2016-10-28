@@ -6,9 +6,9 @@
 #include <string>
 #include <cstdio>
 
-#include "WindowsConsole.hpp"
+#include "Util\WindowsConsole.hpp"
+#include "Util\KeyboardHook.hpp"
 #include "Manager.hpp"
-#include "KeyboardHook.hpp"
 
 HINSTANCE instanceDLL = NULL;
 

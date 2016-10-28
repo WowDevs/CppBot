@@ -2,15 +2,15 @@
 #include <map>
 #include <string>
 #include <d3d9.h>
-#include "Timer.hpp"
 #include "D3dx9core.h"
-#include "Detour.hpp"
-#include "Lua.hpp"
+#include "Memory\Detour.hpp"
+#include "Util\Timer.hpp"
+#include "Util\Helpers.hpp"
+#include "Lua\Lua.hpp"
+#include "WowStuff\WowFuncs.hpp"
+#include "Objects\Spell.hpp"
+#include "Routines\PaladinLeveling.hpp"
 #include "Graphics.hpp"
-#include "WowFuncs.hpp"
-#include "Spell.hpp"
-#include "Helpers.hpp"
-#include "PaladinLeveling.hpp"
 
 bool shouldRemoveEndSceneInjection = false;
 bool endSceneUnhooked = false;

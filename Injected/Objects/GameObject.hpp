@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.hpp"
-#include "SharedDefines.h"
+#include "WowStuff\SharedDefines.h"
 
 class LocalPlayer;
 extern LocalPlayer* me;

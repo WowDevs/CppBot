@@ -1,5 +1,6 @@
 #pragma once
-#include"Helpers.hpp"
+#include "Util\Helpers.hpp"
+#include "..\Manager.hpp"
 
 bool should_exit = false;
 

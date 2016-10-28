@@ -1,25 +1,25 @@
 #pragma once
 #include <vector>
 
-#include "LocalPlayer.hpp"
-#include "Container.hpp"
-#include "GameObject.hpp"
-#include "Corpse.hpp"
-#include "DynamicObject.hpp"
+#include "Objects\LocalPlayer.hpp"
+#include "Objects\Container.hpp"
+#include "Objects\GameObject.hpp"
+#include "Objects\Corpse.hpp"
+#include "Objects\DynamicObject.hpp"
 
 std::vector<GameObject*> gameobjects;
 std::vector<Item*> items;
 std::vector<Unit*> units;
 std::vector<Player*> players;
-std::map<long long, Object*> objects;
+std::map<uint64, Object*> objects;
 
 LocalPlayer* me = nullptr;
 Unit* target = nullptr;
 Unit* focus = nullptr;
 
-long long playerGuid = 0;
-long long targetGuid = 0;
-long long focusGuid = 0;
+uint64 playerGuid = 0;
+uint64 targetGuid = 0;
+uint64 focusGuid = 0;
 
 inline int ClientConnection()
 {
@@ -31,14 +31,14 @@ inline int ObjManager()
 	return ClientConnection()? *(int*)(ClientConnection() + 0x2ED0) : 0;
 }
 
-inline long long GetPlayerGuid()
+inline uint64 GetPlayerGuid()
 {
-	return  ObjManager()? *(long long*)(ObjManager() + 0xC0) : 0;	//((long long(__cdecl*)())0x004D3790)(); 	
+	return  ObjManager()? *(uint64*)(ObjManager() + 0xC0) : 0;	//((uint64(__cdecl*)())0x004D3790)(); 	
 }
 
-inline int GetObjectByGuidCheck(long long guid, int typemask = -1)
+inline int GetObjectByGuidCheck(uint64 guid, int typemask = -1)
 {
-	return  guid? ((int(__cdecl*)(long long, int))0x004D4DB0)(guid, typemask) : 0;
+	return  guid? ((int(__cdecl*)(uint64, int))0x004D4DB0)(guid, typemask) : 0;
 }
 
 inline int GetPlayerAddr()
@@ -46,23 +46,23 @@ inline int GetPlayerAddr()
 	return GetObjectByGuidCheck(GetPlayerGuid(), TYPEMASK_PLAYER);
 }
 
-inline long long GetTargetGuid()
+inline uint64 GetTargetGuid()
 {
-	return *(long long*)0x00BD07B0;
+	return *(uint64*)0x00BD07B0;
 }
 
-inline long long GetFocusGuid()
+inline uint64 GetFocusGuid()
 {
-	return *(long long*)0x00BD07D0;
+	return *(uint64*)0x00BD07D0;
 }
 
-inline Object* GetObjectByGuid(long long guid)
+inline Object* GetObjectByGuid(uint64 guid)
 {	
 	return objects[guid];
 }
 
 // -------------  P u l s e --------------
-int __cdecl EnumVisibleObjectsCallback(long long guid, int filter)
+int __cdecl EnumVisibleObjectsCallback(uint64 guid, int filter)
 {
 	int pointer = GetObjectByGuidCheck(guid, -1);
 	if (pointer == 0)

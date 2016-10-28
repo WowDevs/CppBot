@@ -2,7 +2,7 @@
 #include <string>
 #include <time.h>
 #include <algorithm>
-#include "Wowtypes.h"
+#include "WowStuff\Wowtypes.h"
 
 void FramescriptExecute(const char* text)
 {

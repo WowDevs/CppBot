@@ -1,6 +1,7 @@
 #pragma once
 #include "Unit.hpp"
 
+
 extern std::vector<Unit*> units;
 
 class Player : public Unit
@@ -9,7 +10,7 @@ public:
 
 	Player(int pointer) : Unit(pointer) { }
 
-	long long PetGuid()
+	uint64 PetGuid()
 	{
 		for (auto& u : units)
 		{
