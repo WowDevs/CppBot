@@ -13,16 +13,8 @@
 HINSTANCE instanceDLL = nullptr;
 HWND wowWindow = nullptr;
 
-
 DWORD MainThreadControl(LPVOID /* param */);
 LRESULT WINAPI KeyboardHook(int/* nCode*/, WPARAM/* wParam*/, LPARAM/* lParam*/);
-BOOL CALLBACK Enum_Windows_Callback(HWND/* handle*/, LPARAM/* lParam*/);
-
-struct handle_data
-{
-	unsigned long process_id;
-	HWND best_handle;
-};
 
 // entry point of the DLL
 BOOL APIENTRY DllMain(HINSTANCE instDLL, DWORD reason, LPVOID /* reserved */)
@@ -60,8 +52,8 @@ DWORD MainThreadControl(LPVOID lpParm)
 	WindowsConsole::Create();	
 	Sleep(200);
 
-	HWND Find = FindWindow(0, "World of Warcraft");
-	SetForegroundWindow(Find);
+	HWND wowWindow = FindWindow(0, "World of Warcraft");
+	SetForegroundWindow(wowWindow);
 
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&MessageLoop, NULL, 0, NULL);
 
