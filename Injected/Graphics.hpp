@@ -7,6 +7,8 @@
 
 typedef std::chrono::high_resolution_clock Clock;
 
+#pragma region Colors
+
 //Colors are A,R,G,B meaning alpha(opacity), red, green, blue
 D3DCOLOR RED = D3DCOLOR_ARGB(255, 255, 0, 0);
 D3DCOLOR GREEN = D3DCOLOR_ARGB(255, 0, 255, 0);
@@ -24,6 +26,8 @@ D3DCOLOR LGRAY = D3DCOLOR_ARGB(255, 174, 174, 174); //Light Gray
 D3DCOLOR DGRAY = D3DCOLOR_ARGB(255, 71, 65, 64); //Dark Gray
 D3DCOLOR BROWN = D3DCOLOR_ARGB(255, 77, 46, 38);
 D3DCOLOR SHIT = D3DCOLOR_ARGB(255, 74, 38, 38); //Shit and brown aint much different
+
+#pragma endregion
 
 class Graphics
 {

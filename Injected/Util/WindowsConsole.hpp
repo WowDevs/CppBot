@@ -28,7 +28,7 @@ public:
 		// re-opens STDOUT handle as a console window output
 		freopen("CONOUT$", "w", stdout);	
 
-		ShowWindow(consoleWindowHandler, SW_SHOWMINIMIZED);
+		//ShowWindow(consoleWindowHandler, SW_SHOWMINIMIZED);
 
 		return true;
 	}

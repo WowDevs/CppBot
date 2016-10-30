@@ -10,10 +10,19 @@
 #include "Util\KeyboardHook.hpp"
 #include "Manager.hpp"
 
-HINSTANCE instanceDLL = NULL;
+HINSTANCE instanceDLL = nullptr;
+HWND wowWindow = nullptr;
+
 
 DWORD MainThreadControl(LPVOID /* param */);
 LRESULT WINAPI KeyboardHook(int/* nCode*/, WPARAM/* wParam*/, LPARAM/* lParam*/);
+BOOL CALLBACK Enum_Windows_Callback(HWND/* handle*/, LPARAM/* lParam*/);
+
+struct handle_data
+{
+	unsigned long process_id;
+	HWND best_handle;
+};
 
 // entry point of the DLL
 BOOL APIENTRY DllMain(HINSTANCE instDLL, DWORD reason, LPVOID /* reserved */)
@@ -21,8 +30,10 @@ BOOL APIENTRY DllMain(HINSTANCE instDLL, DWORD reason, LPVOID /* reserved */)
 	if (reason == DLL_PROCESS_ATTACH)
 	{
 		instanceDLL = instDLL;
+
 		// disables thread notifications (DLL_THREAD_ATTACH, DLL_THREAD_DETACH)
-		DisableThreadLibraryCalls(instDLL);		
+		DisableThreadLibraryCalls(instDLL);	
+
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&MainThreadControl, NULL, 0, NULL);		
 	}	
 	else if (reason == DLL_PROCESS_DETACH)
@@ -47,7 +58,10 @@ void WINAPI MessageLoop(LPVOID lpParm)
 DWORD MainThreadControl(LPVOID lpParm)
 {	
 	WindowsConsole::Create();	
-	Sleep(200);	
+	Sleep(200);
+
+	HWND Find = FindWindow(0, "World of Warcraft");
+	SetForegroundWindow(Find);
 
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&MessageLoop, NULL, 0, NULL);
 
@@ -111,6 +125,7 @@ void GetDevicePointers()
 		resetPointer = *(int*)(ptr + 0x40);   //16 * 4	
 	}while (resetPointer == 0);
 }
+
 
 
 

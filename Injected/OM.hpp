@@ -28,12 +28,25 @@ inline int ClientConnection()
 
 inline int ObjManager()
 {
-	return ClientConnection()? *(int*)(ClientConnection() + 0x2ED0) : 0;
+	return ClientConnection()? *(int*)(ClientConnection() + 0x2ED0) : 0;	//*(int*)(*(int*)(__readfsdword(0x2C) + 4 * *(int*)0x00D439BC) + 8);
 }
 
 inline uint64 GetPlayerGuid()
 {
 	return  ObjManager()? *(uint64*)(ObjManager() + 0xC0) : 0;	//((uint64(__cdecl*)())0x004D3790)(); 	
+}
+
+inline int GetObjectByGuidImplemented(uint64 guid, int typemask = -1)
+{
+	int objm = *(int*)(*(int*)(__readfsdword(0x2C) + 4 * *(int*)0x00D439BC) + 8);
+
+	if (!objm || !guid)
+		return 0;
+
+
+	
+	
+	return  guid ? ((int(__cdecl*)(uint64, int))0x004D4DB0)(guid, typemask) : 0;
 }
 
 inline int GetObjectByGuidCheck(uint64 guid, int typemask = -1)

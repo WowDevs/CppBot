@@ -1,10 +1,11 @@
 #pragma once
+#include "Unit.hpp"
 #include "Player.hpp"
 
-class LocalPlayer : public Player
+class LocalPlayer : public Unit
 {
 public:
-	LocalPlayer(int pointer) : Player(pointer) { }
+	LocalPlayer(int pointer) : Unit(pointer) { }
 
 	uint64 PetGuid()
 	{
