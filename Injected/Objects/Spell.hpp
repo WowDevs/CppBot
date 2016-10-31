@@ -4,13 +4,9 @@
 #include "WowStuff\WowFuncs.hpp"
 #include "LocalPlayer.hpp"
 
-//class Unit;
-//class LocalPlayer;
-////extern LocalPlayer* me;
+std::map<int, timer> casted;
 
 int SpellIdByName(char*);
-
-
 
 class Spell
 {
@@ -54,7 +50,22 @@ public:
 		int result = start + duration - PerformanceCount();
 		return isReady ? (result > 0 ? result / 1000.0f : 0) : FLT_MAX;
 	}
-	
+
+	bool Cast(Unit* unit, int itemId = 0, bool isTrade = 0)
+	{
+		if (!unit)
+			return false;		
+				
+		if (casted.find(id) != casted.end()) 		
+			if (casted[id].elapsedTime() < 0.3)
+				return false;
+		
+		casted[id] = timer();
+
+		uint64 guid = (unit->addr == ((Object*)me)->addr) ? 0 : unit->Guid();
+
+		return ((bool(__cdecl*)(int, int, uint64, bool))(0x0080DA40))(id, itemId, guid, isTrade);
+	}	
 };
 
 int SpellIdByName(char* name)

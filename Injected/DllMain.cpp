@@ -31,8 +31,7 @@ BOOL APIENTRY DllMain(HINSTANCE instDLL, DWORD reason, LPVOID /* reserved */)
 	}	
 	else if (reason == DLL_PROCESS_DETACH)
 	{		
-		WindowsConsole::Destroy();
-		
+		WindowsConsole::Destroy();		
 	}
 	return TRUE;
 }
@@ -80,6 +79,8 @@ DWORD MainThreadControl(LPVOID lpParm)
 
 	ConsoleWrite("test", DEFAULT_COLOR);	
 	RegisterCommand("testcmd", CCommand_TestCommand, CATEGORY_DEBUG, "Test help string");
+
+	//ShowConsole();
 	
 	//wait for the numpad 7 to be pressed
 	while (!should_exit)

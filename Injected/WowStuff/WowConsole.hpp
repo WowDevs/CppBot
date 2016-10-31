@@ -47,6 +47,16 @@ inline void EnableWowConsole()
 	*(int*)0x00CABCC4 = 1;
 }
 
+inline void ShowConsole()
+{
+	*(int*)0x00CA1978 = 1;
+}
+
+inline void HideConsole()
+{
+	*(int*)0x00CA1978 = 0;
+}
+
 inline void ConsoleWrite(const char *text, COLOR_T color)
 {
 	((void(__stdcall*)(const char*, COLOR_T))(0x00765270))(text, color);

@@ -6,6 +6,11 @@ class timer
 private:
 	unsigned long begTime;
 public:
+	timer()
+	{
+		start();
+	}
+
 	void start()
 	{
 		begTime = clock();

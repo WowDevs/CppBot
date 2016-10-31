@@ -56,27 +56,32 @@ int __stdcall EndSceneDetour(LPDIRECT3DDEVICE9 device)
 
 	graph->Pulse(device);
 
-	if (me && me->Class() == CLASS_PALADIN)
+	if (me && ((Unit*)me)->Class() == CLASS_PALADIN)
 		PaladinLeveling();
 
+#pragma region TestRegion
+
+	// here is an area to random tests
 	if (do_something)
 	{
 		++silly_counter;
 
-		if (me)
+		auto sp = Spell("Blessing of Might");
+
+		sp.Cast((Unit*)me);
+
+		/*if (me)
 		{
 			*(int*)(me->addr + 0x1A64) = silly_counter;
 
 			me->UpdateDisplayInfo();
-		}
+		}*/
 		
 		do_something = false;
 	}
 
-	mrint("model", std::to_string(silly_counter));
-
-	/*if (me)
-		me->UpdateDisplayInfo();*/
+	//mrint("model", std::to_string(silly_counter));	
+#pragma endregion
 
 	frameCount++;
 
