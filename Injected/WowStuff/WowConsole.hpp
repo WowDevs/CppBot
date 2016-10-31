@@ -30,7 +30,7 @@ enum COLOR_T
 
 typedef bool (*CommadHandler)(char const* cmd, char const* args);
 
-static auto const WriteA = reinterpret_cast<void(__cdecl*)(const char *fmt, COLOR_T color, ...)>(0x00765360);
+static auto const ConsoleWriteA = reinterpret_cast<void(__cdecl*)(const char *fmt, COLOR_T color, ...)>(0x00765360);
 
 inline bool RegisterCommand(char const* command, CommadHandler handler, CommandCategory category, char const* help)
 {
@@ -40,4 +40,14 @@ inline bool RegisterCommand(char const* command, CommadHandler handler, CommandC
 inline void UnregisterCommand(char const* command)
 {
 	((void(__cdecl*)(char const*))0x007689E0)(command);
+}
+
+inline void EnableWowConsole()
+{
+	*(int*)0x00CABCC4 = 1;
+}
+
+inline void ConsoleWrite(const char *text, COLOR_T color)
+{
+	((void(__stdcall*)(const char*, COLOR_T))(0x00765270))(text, color);
 }

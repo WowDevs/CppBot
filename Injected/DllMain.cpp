@@ -8,6 +8,7 @@
 
 #include "Util\WindowsConsole.hpp"
 #include "Util\KeyboardHook.hpp"
+#include "WowStuff\WowConsole.hpp"
 #include "Manager.hpp"
 
 HINSTANCE instanceDLL = nullptr;
@@ -47,6 +48,12 @@ void WINAPI MessageLoop(LPVOID lpParm)
 	GetMessage(&message, NULL, 0, 0);	
 }
 
+bool CCommand_TestCommand(char const* cmd, char const* args)
+{
+	ConsoleWriteA("Hello from TestCommand: cmd '%s', args '%s'", INPUT_COLOR, cmd, args);
+	return true;
+}
+
 DWORD MainThreadControl(LPVOID lpParm)
 {	
 	WindowsConsole::Create();	
@@ -64,8 +71,17 @@ DWORD MainThreadControl(LPVOID lpParm)
 	g_Detours["EndScene"] = new Detour(endScenePointer, (int)EndSceneDetour);
 	g_Detours["Reset"] = new Detour(resetPointer, (int)ResetDetour);
 	//g_Detours["OnKeyUp"] = new Detour(0x00763BE0, (int)OnKeyUpDetour);		
-	
 
+	EnableWowConsole();
+
+	// Fix InvalidPtrCheck for callbacks outside of .text section
+	*(int*)0x00D415B8 = 1;
+	*(int*)0x00D415BC = 0x7FFFFFFF;
+
+	ConsoleWrite("test", DEFAULT_COLOR);	
+	RegisterCommand("testcmd", CCommand_TestCommand, CATEGORY_DEBUG, "Test help string");
+	
+	//wait for the numpad 7 to be pressed
 	while (!should_exit)
 	{		
 	}	
